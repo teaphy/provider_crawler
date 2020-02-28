@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +23,26 @@ class _SelectorPageState extends State<SelectorPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Consumer<Counter>(
+                  builder: (context, counter, child) {
+                    print("Consumer ---> count1: ${counter.count1}");
+                    return Column(
+                      children: <Widget>[
+                        Text("consume --> count1: ${counter.count1}"),
+                      ],
+                    );
+                  },
+                ),
+                Consumer<Counter>(
+                  builder: (context, counter, child) {
+                    print("Consumer ---> count2: ${counter.count2}");
+                    return Column(
+                      children: <Widget>[
+                        Text("consume --> count2: ${counter.count2}")
+                      ],
+                    );
+                  },
+                ),
                 Selector<Counter, int>(
                   builder: (_, counter, __) {
                     print("selector ---> count1: $counter");
@@ -85,6 +103,4 @@ class Counter with ChangeNotifier {
     _count2++;
     notifyListeners();
   }
-
 }
-
