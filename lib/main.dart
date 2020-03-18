@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:provider_crawler/listenable_provider_page.dart';
 import 'package:provider_crawler/provider_page.dart';
 import 'package:provider_crawler/proxy_provider_page.dart';
 import 'package:provider_crawler/selector.dart';
 import 'package:provider_crawler/stream_provider_.page.dart';
+import 'package:provider_crawler/test.dart';
 import 'package:provider_crawler/value_listenable_provider_page.dart';
 
 import 'change_notifier_provider_page.dart';
@@ -11,7 +13,12 @@ import 'change_notifier_proxy_provider_page.dart';
 import 'future_provider_page.dart';
 import 'multi_provider_page.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+  ChangeNotifierProvider(
+    create:(context) => TestCounter(),
+    child: MyApp(),
+  )
+);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -122,6 +129,14 @@ class HomePage extends StatelessWidget {
                     builder: (context) => SelectorPage(),
                   )),
               child: Text('Selector'),
+            ),
+            FlatButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TestPage(),
+                  )),
+              child: Text('Test'),
             ),
           ],
         ),
